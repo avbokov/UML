@@ -117,8 +117,9 @@ class Car
 
 public:
 
-	Car(double consumption, const unsigned int VOLUME, unsigned int max_speed): engine(consumption), tank(VOLUME), max_speed(max_speed >= 100 && max_speed <= 200 ? max_speed : MAX_SPEED_DEFAULT), current_speed(0)
+	Car(double consumption, const unsigned int VOLUME, unsigned int max_speed): engine(consumption), tank(VOLUME), max_speed(max_speed >= 100 && max_speed <= 200 ? max_speed : MAX_SPEED_DEFAULT)
 	{
+		current_speed = 0;
 		cout << "Car is ready" << endl;
 	}
 	~Car()
