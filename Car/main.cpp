@@ -81,7 +81,7 @@ public:
 	void set_consumption(double consumption)
 	{
 		if (consumption < MIN_ENGINE_CONSUMPTION)consumption = MIN_ENGINE_CONSUMPTION;
-		else if (consumption > MAX_ENGINE_CONSUMPTION)consumption - MAX_ENGINE_CONSUMPTION;
+		else if (consumption > MAX_ENGINE_CONSUMPTION)consumption = MAX_ENGINE_CONSUMPTION;
 		this->consumption = consumption;
 		this->consumption_per_second = this->consumption * .3e-4;
 	}
@@ -105,9 +105,38 @@ public:
 	}
 };
 
+const unsigned int MAX_SPEED_DEFAULT = 200;
+
+class Car 
+{
+	Engine engine;
+	Tank tank;
+
+	unsigned int current_speed;
+	unsigned int max_speed;
+
+public:
+
+	Car(double consumption, const unsigned int VOLUME, unsigned int max_speed): engine(consumption), tank(VOLUME), max_speed(max_speed >= 100 && max_speed <= 200 ? max_speed : MAX_SPEED_DEFAULT), current_speed(0)
+	{
+		cout << "Car is ready" << endl;
+	}
+	~Car()
+	{
+		cout << "Car is over" << endl;
+	}
+
+	void info()const
+	{
+		tank.info();
+		engine.info();
+		cout << "Current speed: " << current_speed << " km/h" << endl;;
+		cout << "Max speed:\t" << max_speed << " km/h" << endl;;
+	}
+};
 
 //#define TANK_CHECK
-//#define TANK_
+//#define ENGINE_CHECK
 
 void main()
 {
@@ -125,6 +154,12 @@ void main()
 	}
 #endif // TANK_CHECK
 
+#ifdef ENGINE_CHECK
 	Engine engine(12);
 	engine.info();
+#endif // ENGINE_CHECK
+		
+	Car car(100, 60, 210);
+	car.info();
+
 }
